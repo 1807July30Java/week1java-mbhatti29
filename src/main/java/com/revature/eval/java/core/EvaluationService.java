@@ -31,7 +31,18 @@ public class EvaluationService {
 	 */
 	public String acronym(String phrase) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		String newPhrase = "";
+		
+		String args2 = phrase.replace("\\,\\.\\-", " ");
+		String[] singleWords = args2.split(" ");
+		
+		for (int i = 0; i < singleWords.length; i++) {
+			newPhrase += singleWords[i].charAt(0);
+			
+		
+		}
+		return newPhrase;
+//		return null;
 	}
 
 	/**
@@ -116,7 +127,64 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getScrabbleScore(String string) {
-		// TODO Write an implementation for this method declaration
+		String newScrabble = string;
+		int result = 0;
+
+
+		switch (newScrabble) {
+				case "A":
+				case "E":
+				case "I":
+				case "O":
+				case "U":
+				case "L":
+				case "N":
+				case "R":
+				case "S":
+				case "T":
+					result += 1;
+					break;
+				case "D":
+				case "G":
+					result += 2;
+					break;
+				case "C":
+				case "M":
+				case "P": 
+				case "B":
+					result += 3;
+					break;
+				case "F":
+				case "H":
+				case "V":
+				case "W":
+				case "Y":
+					result += 4;
+					break;
+				case "K":
+					result += 5;
+					break;
+				case "J":
+				case "X":
+					result += 8;
+					break;	
+				case "Q":
+				case "Z":
+					result += 10;
+					break;
+				default:
+					System.out.println("Invalid entry. Shame on you");
+					break;
+		}
+
+		
+			char[] newPhrase =  newScrabble.toCharArray();
+			System.out.println(newPhrase);
+			
+			for (int y = 0; y < newPhrase.length; y++) {
+				result += newPhrase[y];
+				System.out.print(newPhrase[y]);
+			}
 		return 0;
 	}
 
@@ -153,7 +221,9 @@ public class EvaluationService {
 	 */
 	public String cleanPhoneNumber(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		String cleanNum = string.replaceAll("1?[^0-9]+", "");
+		return cleanNum;
+//		return null;
 	}
 
 	/**
