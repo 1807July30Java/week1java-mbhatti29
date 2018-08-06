@@ -1,8 +1,11 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.IntStream;
 
 public class EvaluationService {
 
@@ -94,19 +97,42 @@ public class EvaluationService {
 			this.sideThree = sideThree;
 		}
 
-		public boolean isEquilateral() {
+		public boolean isEquilateral(double side1, double side2, double side3) {
 			// TODO Write an implementation for this method declaration
-			return false;
+			this.sideOne = side1;
+			this.sideTwo = side2;
+			this.sideThree = side3;
+			
+			if (this.sideOne == this.sideTwo && this.sideThree == this.sideOne) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 
-		public boolean isIsosceles() {
+		public boolean isIsosceles(double side1, double side2, double side3) {
 			// TODO Write an implementation for this method declaration
-			return false;
+			this.sideOne = side1;
+			this.sideTwo = side2;
+			this.sideThree = side3;
+			if (this.sideOne == this.sideTwo || this.sideTwo == this.sideThree || this.sideOne == this.sideThree) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 
-		public boolean isScalene() {
+		public boolean isScalene(double side1, double side2, double side3) {
 			// TODO Write an implementation for this method declaration
-			return false;
+			this.sideOne = side1;
+			this.sideTwo = side2;
+			this.sideThree = side3; 
+			if (this.sideOne != this.sideTwo && this.sideTwo != this.sideThree && this.sideOne != this.sideTwo) {
+				return true;
+			} else {
+				return false;
+			}
+				
 		}
 
 	}
@@ -124,52 +150,54 @@ public class EvaluationService {
 	 * 3 + 2*1 + 2*3 + 2 + 1 = 3 + 2 + 6 + 3 = 5 + 9 = 14
 	 * 
 	 * @param string
+	 * @return 
 	 * @return
 	 */
-	public int getScrabbleScore(String string) {
-		String newScrabble = string;
+	static int getScore(String scrabble) {
+
+		String newScrabble = scrabble.toLowerCase();
 		int result = 0;
-
-
-		switch (newScrabble) {
-				case "A":
-				case "E":
-				case "I":
-				case "O":
-				case "U":
-				case "L":
-				case "N":
-				case "R":
-				case "S":
-				case "T":
+		
+	for (int i = 0; i < newScrabble.length(); i++) {
+		switch (newScrabble.charAt(i)) {
+				case 'A':
+				case 'E':
+				case 'I':
+				case 'O':
+				case 'U':
+				case 'L':
+				case 'N':
+				case 'R':
+				case 'S':
+				case 'T':
 					result += 1;
 					break;
-				case "D":
-				case "G":
+				case 'D':
+				case 'G':
 					result += 2;
 					break;
-				case "C":
-				case "M":
-				case "P": 
-				case "B":
+				case 'C':
+				case 'M':
+				case 'P': 
+				case 'B':
 					result += 3;
 					break;
-				case "F":
-				case "H":
-				case "V":
-				case "W":
-				case "Y":
+				case 'F':
+				case 'H':
+				case 'V':
+				case 'W':
+				case 'Y':
 					result += 4;
 					break;
-				case "K":
+				case 'K':
 					result += 5;
 					break;
-				case "J":
-				case "X":
+				case 'J':
+				case 'X':
 					result += 8;
 					break;	
-				case "Q":
-				case "Z":
+				case 'Q':
+				case 'Z':
 					result += 10;
 					break;
 				default:
@@ -177,15 +205,15 @@ public class EvaluationService {
 					break;
 		}
 
-		
-			char[] newPhrase =  newScrabble.toCharArray();
-			System.out.println(newPhrase);
-			
-			for (int y = 0; y < newPhrase.length; y++) {
-				result += newPhrase[y];
-				System.out.print(newPhrase[y]);
-			}
-		return 0;
+	}
+//			char[] newPhrase =  newScrabble.toCharArray();
+//			
+//			for (int y = 0; y < newPhrase.length; y++) {
+//	
+//				result += newPhrase[y];
+//				
+//			}
+		return result;
 	}
 
 	/**
@@ -237,7 +265,27 @@ public class EvaluationService {
 	 */
 	public Map<String, Integer> wordCount(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		
+		Map<String, Integer> wCount = new HashMap<String, Integer>();
+		ArrayList <String> aL = new ArrayList<>();
+		
+		String[]st = string.split("\\s*(=>|,|\\s)\\s*");
+		
+		for (int i = 0; i < st.length; i++) {
+			aL.add(st[i]);
+		}
+		
+		for (String string2 : aL) {
+			
+			if (wCount.containsKey(string2)) {
+				wCount.put(string2, wCount.get(string2)+1);
+			}else {
+				wCount.put(string2, 1);
+			}
+			
+		}
+		return wCount;
+//		return null;
 	}
 
 	/**
@@ -317,9 +365,24 @@ public class EvaluationService {
 	 */
 	public String toPigLatin(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
-	}
+		char[] vowel = ['a', 'e', 'i', 'o', 'u'];
+		String newStr = "";
 
+		for (int i = 0; i < vowel.length; i++) {
+			if (string.charAt(0) == vowel[i]) {
+				string  += "way";
+				return str;
+			} else if (str.charAt(0) == "g" && str.charAt(1) == "l") {
+      			newStr = str.substr(2) + str.substr(0, 2) + "ay";
+    		} else {
+      			newStr = str.substr(1) + str.substr(0, 1) + "ay";
+    		}	
+
+		}
+		return newStr;
+		// return null;
+	}
+	
 	/**
 	 * 9. An Armstrong number is a number that is the sum of its own digits each
 	 * raised to the power of the number of digits.
@@ -337,7 +400,31 @@ public class EvaluationService {
 	 */
 	public boolean isArmstrongNumber(int input) {
 		// TODO Write an implementation for this method declaration
-		return false;
+		String num = Integer.toString(input);
+		String[] strArr = num.split(""); 
+		Integer [] numArray = new Integer[num.length()];
+		for (int i = 0; i < strArr.length; i++) {
+			int number = 0;
+			try {
+				number = Integer.parseInt(strArr[i]);
+			} catch (NumberFormatException e) {
+			System.out.println("enter correct number");
+			}
+			numArray[i] = number;
+		}
+		int[] eachRaise = new int [numArray.length];
+		for (int i = 0; i < numArray.length; i++) {
+			int sum = (int) Math.pow(numArray[i], (numArray.length));
+			eachRaise[i] = sum;
+		}
+		
+		int armStrong = IntStream.of(eachRaise).sum();
+		if (armStrong == input) {
+			return true;
+		}else {
+			return false;
+		}
+		
 	}
 
 	/**
@@ -352,7 +439,27 @@ public class EvaluationService {
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		
+					//	return null;
+				List<Long> primeList = new ArrayList<>();
+				long number = l;
+
+				System.out.println("The number: " + number);
+				System.out.println("Has prime factors are: ");
+				for (long i = 2; i <= number; i++) {
+		            while (number % i == 0) {
+//		                System.out.print(i + " ");
+		                number = number / i;
+		                primeList.add(i);
+		            }
+		        }
+		 
+		        if (number < 1)  {
+		        	System.out.print(number + ", ");
+		        }
+		        
+		        return primeList;
+	
 	}
 
 	/**
@@ -409,8 +516,25 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int calculateNthPrime(int i) {
+		
+		int number = prime;
+		// list<long> primelist = new list<long>;
+
+
+		System.out.println("The number: " + number);
+		System.out.println("Has prime factors are: ");
+		for (int i = 2; i <= number; i++) {
+            while (number % i == 0) {
+                System.out.print(i + " ");
+                number = number / i;
+            }
+        }
+ 
+        if (number < 1)  {
+        	System.out.print(number + ", ");
+        }
 		// TODO Write an implementation for this method declaration
-		return 0;
+//		return 0;
 	}
 
 	/**
@@ -446,10 +570,32 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String encode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
-		}
+			String straar = string.replaceAll("\\W", "").toLowerCase();
+			
+			System.out.println(straar);
+		  	StringBuilder str = new StringBuilder();
+		  	String[] strArr = straar.split("");
+		  	
+		  	
+			String alphaArray ="abcdefghijklmnopqrstuvwxyz";
+			StringBuilder test = new StringBuilder(alphaArray).reverse();
+			String test1 = test.toString();
 
+			
+		    for (int i = 0; i<strArr.length; i++) { 
+		    	if (!strArr[i].matches(".\\d+.")) {
+					int index = alphaArray.indexOf(strArr[i]);
+					str.append(test1.charAt(index));
+				}else if (strArr[i].matches(".\\d+.") ){
+					str.append(strArr[i]);
+				}
+		   }
+
+		    
+		    String result = str.toString();
+		    String repl = result.replaceAll(".....(?!$)", "$0 ");
+				return repl;
+		}
 		/**
 		 * Question 14
 		 * 
@@ -457,10 +603,33 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String decode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
-		}
+			String straar = string.replaceAll("\\W", "").toLowerCase();
+			
+		  	StringBuilder str = new StringBuilder();
+		  	String[] strArr = straar.split("");
+		  	
+		  	
+			String alphaArray ="abcdefghijklmnopqrstuvwxyz";
+			StringBuilder test = new StringBuilder(alphaArray).reverse();
+			String test1 = test.toString();
+
+			
+		    for (int i = 0; i<strArr.length; i++) { 
+		    	if (!strArr[i].matches(".\\d+.")) {
+					int index = alphaArray.indexOf(strArr[i]);
+					str.append(test1.charAt(index));
+				}else if (strArr[i].matches(".\\d+.") ){
+					str.append(strArr[i]);
+				}
+		   }
+
+		    
+		    String result = str.toString();
+		 
+				return result;
+			}
 	}
+	
 
 	/**
 	 * 15. The ISBN-10 verification process is used to validate book identification
@@ -504,7 +673,17 @@ public class EvaluationService {
 	 */
 	public boolean isPangram(String string) {
 		// TODO Write an implementation for this method declaration
-		return false;
+		
+				String[] sepString = string.split("");
+				String[] alphaArray = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k","l","m","n","o", "p","q","r", "s", "t", "u", "v", "w", "x", "y", "z"};
+				
+				
+				for (int i = 0; i < alphaArray.length; i++) {
+						if (!Arrays.asList(sepString).contains(alphaArray[i])) {
+							return false;
+						}
+				}
+				return true;
 	}
 
 	/**
